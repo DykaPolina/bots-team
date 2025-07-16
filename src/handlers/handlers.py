@@ -76,7 +76,7 @@ def set_address(args, book):
     Usage: add-address [name] [address]
     """
     if len(args) != 2:
-        return "Usage: add-address [name] [DD.MM.YYYY]"
+        return "Usage: add-address [name] [address]"
     name, address = args
     record = book.find(name)
     if not record:
@@ -122,7 +122,7 @@ def add_email(args, book):
     Usage: add-email [name] [email]
     """
     if len(args) != 2:
-        return "Usage: add-email [name] [DD.MM.YYYY]"
+        return "Usage: add-email [name] [email]"
     name, email = args
     record = book.find(name)
     if not record:
