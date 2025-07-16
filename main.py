@@ -7,7 +7,7 @@ from src.models.storage import load_data, save_data
 from src.handlers.utils import parse_input
 from src.handlers.handlers import (
     add_contact, change_contact, show_phone,
-    show_all, add_birthday, show_birthday, birthdays,
+    show_all, set_birthday, show_birthday, birthdays,
     remove_phone, find_phone, delete_contact, help_command
 )
 
@@ -37,8 +37,8 @@ def main():
                 print(show_phone(args, book))
             case "all":
                 print(show_all(book))
-            case "add-birthday":
-                print(add_birthday(args, book))
+            case "set-birthday":
+                print(set_birthday(args, book))
             case "show-birthday":
                 print(show_birthday(args, book))
             case "birthdays":

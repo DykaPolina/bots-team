@@ -21,12 +21,21 @@ class Name(Field):
 
 class Phone(Field):
     """
-    Phone field with 10-digit validation.
+    Phone field with Ukrainian phone number format validation.
     """
-    def __init__(self, value):
-        if not value.isdigit() or len(value) != 10:
-            raise ValueError("Phone number must be 10 digits.")
-        super().__init__(value)
+    def __init__(self, value: str):
+        pattern = re.fullmatch(r"(\+?38)?0\d{9}$", value)
+        if not pattern:
+            raise ValueError("Invalid Ukrainian phone number format.")
+        if value.startswith("0"):
+            normalized = f"+38{value}"
+        elif value.startswith("380"):
+            normalized = f"+{value}"
+        elif value.startswith("+380"):
+            normalized = value
+        else:
+            raise ValueError("Unrecognized phone number format.")
+        super().__init__(normalized)
 
 class Address(Field):
     """Address field (no validation)."""

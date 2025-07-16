@@ -23,9 +23,9 @@ class AddressBook(UserDict):
         if name in self.data:
             del self.data[name]
 
-    def get_upcoming_birthdays(self):
+    def get_upcoming_birthdays(self, days: int):
         """
-        Return a string with contacts who have birthdays in the next 7 days.
+        Return a string with contacts who have birthdays in the given number of days.
         """
         today = date.today()
         result = []
@@ -36,7 +36,7 @@ class AddressBook(UserDict):
                 next_bday = bday.replace(year=today.year)
                 if next_bday < today:
                     next_bday = next_bday.replace(year=today.year + 1)
-                if 0 <= (next_bday - today).days <= 7:
+                if 0 <= (next_bday - today).days <= days:
                     result.append(f"{record.name.value}: {next_bday.strftime('%d.%m.%Y')}")
 
         return "\n".join(result) if result else "No upcoming birthdays."

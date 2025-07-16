@@ -71,9 +71,9 @@ def show_all(book, args=None):
 
 
 @input_error
-def add_birthday(args, book):
+def set_birthday(args, book):
     """
-    Add a birthday to an existing contact.
+    Set a birthday to an existing contact.
     Usage: add-birthday [name] [DD.MM.YYYY]
     """
     if len(args) != 2:
@@ -82,7 +82,7 @@ def add_birthday(args, book):
     record = book.find(name)
     if not record:
         return "Contact not found."
-    record.add_birthday(bday)
+    record.set_birthday(bday)
     return "Birthday added."
 
 
@@ -176,9 +176,9 @@ def help_command(args, book):
         "  change [name] [old] [new]     - Replace old phone with new\n"
         "  phone [name]                  - Show contact's phones\n"
         "  all                           - Show all contacts\n"
-        "  add-birthday [name] [date]    - Add birthday in DD.MM.YYYY format\n"
+        "  set-birthday [name] [date]    - Set birthday in DD.MM.YYYY format\n"
         "  show-birthday [name]          - Show birthday of contact\n"
-        "  birthdays                     - Show upcoming birthdays (7 days)\n"
+        "  birthdays [days]              - Show upcoming birthdays in the given number of days\n"
         "  remove-phone [name] [phone]   - Remove a phone number\n"
         "  find-phone [name] [phone]     - Check if phone exists\n"
         "  delete-contact [name]         - Remove the entire contact\n"
