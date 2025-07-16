@@ -15,6 +15,8 @@ def input_error(func):
             return str(e)
         except IndexError:
             return "Enter the argument for the command."
+        except Exception as e:
+            print(f"{e}")
     return inner
 
 def parse_input(user_input):
