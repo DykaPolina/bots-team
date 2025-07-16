@@ -1,7 +1,8 @@
 """
-Field types for records: Name, Phone, Birthday.
+Field types for records: Name, Phone, Address, Email, Birthday.
 """
 
+import re
 from datetime import datetime
 
 class Field:
@@ -25,6 +26,19 @@ class Phone(Field):
     def __init__(self, value):
         if not value.isdigit() or len(value) != 10:
             raise ValueError("Phone number must be 10 digits.")
+        super().__init__(value)
+
+class Address(Field):
+    """Address field (no validation)."""
+    pass
+
+class Email(Field):
+    """
+    Email field with format validation.
+    """
+    def __init__(self, value: str):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", value):
+            raise ValueError("Invalid email format.")
         super().__init__(value)
 
 class Birthday(Field):
