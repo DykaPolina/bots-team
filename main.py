@@ -88,9 +88,9 @@ def main():
     while True:
         user_input = input("Enter a command: ").strip()
         if not user_input:
-            continue  # пустой ввод — пропускаем
+            continue  
 
-        # Парсим команду и аргументы
+        
         parsed = parse_input(user_input)
         if not parsed:
             print("Не вдалося розпізнати команду. Введіть 'help' для списку.")
@@ -98,7 +98,7 @@ def main():
 
         command, args = parsed
 
-        # Проверяем, известная ли команда
+       
         if command in available_commands:
             should_continue = execute_command(command, args, book)
             if not should_continue:
