@@ -17,7 +17,7 @@ from src.handlers.handlers import (
     set_address, show_address, remove_address, add_email,
     change_email, show_email, remove_email, find_email,
     set_birthday, show_birthday, remove_birthday, birthdays,
-    remove_phone, find_phone, delete_contact, help_command
+    remove_phone, find_phone, delete_contact, search, help_command
 )
 
 """може ці дві наступні функції винести з мєйн файлу?"""
@@ -76,6 +76,8 @@ def execute_command(command, args, book):
             print(delete_contact(args, book))
         case "help":
             print(help_command(args, book))
+        case "search":
+            print(search(args, book))
         case _:
             print("Invalid command.")
     return True
@@ -89,7 +91,7 @@ def main():
         "add-address", "show-address", "remove-address",
         "add-email", "change-email", "show-email", "remove-email", "find-email",
         "set-birthday", "show-birthday", "remove-birthday", "birthdays",
-        "remove-phone", "find-phone", "delete-contact"
+        "remove-phone", "find-phone", "delete-contact", "search"
     ]
     completer = WordCompleter(available_commands, ignore_case=True)
     session = PromptSession(completer=completer)
