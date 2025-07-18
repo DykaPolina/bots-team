@@ -26,7 +26,7 @@ def input_error(func):
         except IndexError:
             return "Enter the argument for the command."
         except Exception as e:
-            print(f"{e}")
+            return f"Unexpected error: {type(e).__name__}: {e}"
     return inner
 
 def parse_input(user_input):
