@@ -2,7 +2,14 @@
 Entry point for the assistant bot.
 Handles command parsing and control loop.
 """
+from prompt_toolkit import PromptSession
+from prompt_toolkit.completion import WordCompleter
+from prompt_toolkit.styles import Style
+from prompt_toolkit.formatted_text import HTML
+from prompt_toolkit import print_formatted_text
+
 import difflib
+from prompt_toolkit import prompt
 from src.models.storage import load_data, save_data
 from src.handlers.utils import parse_input
 from src.handlers.handlers import (
@@ -25,10 +32,10 @@ def execute_command(command, args, book):
     match command:
         case "close" | "exit":
             save_data(book)
-            print("Good bye!")
+            print_colored("<purple>Good bye!</purple>")
             return False
         case "hello":
-            print("How can I help you?")
+            print_colored("<lightgreen>How can I help you?</lightgreen>")
         case "add":
             print(add_contact(args, book))
         case "change":
@@ -73,6 +80,9 @@ def execute_command(command, args, book):
             print("Invalid command.")
     return True
 
+def print_colored(text):
+    print_formatted_text(HTML(text))
+
 def main():
     available_commands = [
         "add", "change", "phone", "all", "help", "close", "exit", "hello",
@@ -81,42 +91,50 @@ def main():
         "set-birthday", "show-birthday", "remove-birthday", "birthdays",
         "remove-phone", "find-phone", "delete-contact"
     ]
+    completer = WordCompleter(available_commands, ignore_case=True)
+    session = PromptSession(completer=completer)
+    
     """Run the command-line assistant bot."""
     book = load_data()
-    print("Welcome to the assistant bot!")
-
+    print_colored("<green>Welcome to the assistant bot!</green>")
+    
     while True:
-        user_input = input("Enter a command: ").strip()
+        try:
+            user_input = session.prompt(HTML('<skyblue>Enter a command:</skyblue> ')).strip()
+        except KeyboardInterrupt:
+            continue
+        except EOFError:
+            print_colored("<green>Good bye!</green>")
+            break
+
         if not user_input:
             continue  
 
-        
         parsed = parse_input(user_input)
         if not parsed:
-            print("Не вдалося розпізнати команду. Введіть 'help' для списку.")
-            continue
+            print_colored("<ansiyellow>Не вдалося розпізнати команду. Введіть 'help' для списку.</ansiyellow>")
+            continue          
 
         command, args = parsed
 
        
         if command in available_commands:
-            should_continue = execute_command(command, args, book)
-            if not should_continue:
+            if not execute_command(command, args, book):
                 break
         else:
             suggested = suggest_command(command, available_commands)
             if suggested:
-                print(f"Команда '{command}' не розпізнана. Можливо, ви мали на увазі: '{suggested}'? (y/n)")
-                confirmation = input().strip().lower()
-                if confirmation == "y":
-                    command = suggested
-                    should_continue = execute_command(command, args, book)
-                    if not should_continue:
+                confirm = session.prompt(
+                    HTML(f"<ansiyellow>Команда '{command}' не розпізнана. Можливо, ви мали на увазі: '<b>{suggested}</b>'? (y/n)</ansiyellow> ")
+                ).strip().lower()
+                if confirm == 'y':
+                    if not execute_command(suggested, args, book):
                         break
                 else:
-                    print("Cпробуйте іншу команду.")
+                    print_colored("<ansiyellow>Cпробуйте іншу команду.</ansiyellow>")
             else:
-                print("Невідома команда. Введіть 'help' для списку.")
+                print_colored("<ansired>Невідома команда. Введіть 'help' для списку.</ansired>")
+
 
 
 if __name__ == "__main__":
