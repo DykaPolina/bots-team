@@ -8,6 +8,9 @@ from src.models.classNotes import Notes
 from src.models.address_book import AddressBook
 from src.models.storage import save_data
 
+def get_available_commands():
+    return list(command_list.keys())
+
 
 def command_hello():
     return "How can I help you?"
@@ -318,7 +321,8 @@ def search(args, book):
         return "No matching contacts found."
     return "\n".join(str(record) for record in results)
 
-def help_command():
+
+def help_command(args=None):
     """
     Show available commands and usage.
     Usage: help
@@ -376,9 +380,7 @@ def command_find_text_in_note(args, notes: Notes):
     return notes.find_text_in_note(text)
 
 
-@input_error
-def command_hindler(command, book, args, notes):
-    command_list = {
+command_list = {
         "hello": command_hello,
 
         "add": add_contact,
@@ -417,5 +419,8 @@ def command_hindler(command, book, args, notes):
 
     }
 
+
+@input_error
+def command_hindler(command, book, args, notes):
     return execute_command(command_list[command], {"book": book, "args": args, "notes": notes})
     

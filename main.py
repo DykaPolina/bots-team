@@ -5,20 +5,15 @@ Handles command parsing and control loop.
 
 from src.models.storage import load_data
 from src.handlers.utils import parse_input, suggest_command
-from src.handlers.handlers import command_hindler
+from src.handlers.handlers import command_hindler, get_available_commands
 from src.models.classNotes import Notes
 
 
 def main():
-    available_commands = [
-        "add", "change", "phone", "all", "help", "close", "exit", "hello",
-        "add-address", "show-address", "remove-address",
-        "add-email", "change-email", "show-email", "remove-email", "find-email",
-        "set-birthday", "show-birthday", "remove-birthday", "birthdays",
-        "remove-phone", "find-phone", "delete-contact", "search"
-    ]
     book = load_data()
     notes = Notes()
+    available_commands = get_available_commands()
+    
     print("Welcome to the assistant bot!")
 
     while True:
