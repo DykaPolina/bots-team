@@ -7,12 +7,6 @@ from src.models.storage import load_data, save_data
 from src.handlers.utils import parse_input
 from src.handlers.handlers import command_hindler
 from src.models.classNotes import Notes
-# from src.handlers.handlers import (
-#     add_contact, change_contact, show_phone,
-#     show_all, set_birthday, show_birthday, birthdays,
-#     remove_phone, find_phone, delete_contact, help_command
-# )
-
 
 def main():
     """Run the command-line assistant bot."""
@@ -26,49 +20,6 @@ def main():
             continue
         command, args = parse_input(user_input)
         print(command_hindler(command, book, args, notes))
-
-        # match command:
-        #     case "close" | "exit":
-        #         save_data(book)
-        #         print("Good bye!")
-        #         break
-        #     case "hello":
-        #         print("How can I help you?")
-        #     case "add":
-        #         print(add_contact(args, book))
-        #     case "change":
-        #         print(change_contact(args, book))
-        #     case "phone":
-        #         print(show_phone(args, book))
-        #     case "all":
-        #         print(show_all(book))
-        #     case "set-birthday":
-        #         print(set_birthday(args, book))
-        #     case "show-birthday":
-        #         print(show_birthday(args, book))
-        #     case "birthdays":
-        #         print(birthdays(args, book))
-        #     case "remove-phone":
-        #         print(remove_phone(args, book))
-        #     case "find-phone":
-        #         print(find_phone(args, book))
-        #     case "delete-contact":
-        #         print(delete_contact(args, book))
-        #     case "help":
-        #         print(help_command(args, book))
-        #     case "add-note":
-        #         print(notes.add_note(" ".join(args)))
-        #     case "edit-note":
-        #         note, new_note = " ".join(args).split(";")
-        #         print(notes.edit_note(note, new_note))
-        #     case "find-all-note":
-        #         print(notes.find_all_note())
-        #     case "delete-note":
-        #         print(notes.delete_note(" ".join(args)))
-        #     case "find-text-in-note":
-        #         print(notes.find_text_in_note(" ".join(args)))
-        #     case _:
-        #         print("Invalid command.")
 
 if __name__ == "__main__":
     main()
