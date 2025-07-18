@@ -79,9 +79,10 @@ def set_address(args, book: AddressBook):
     Set an address to an existing contact.
     Usage: add-address [name] [address]
     """
-    if len(args) != 2:
-        return "Usage: add-address [name] [DD.MM.YYYY]"
-    name, address = args
+    if len(args) < 2:
+        return "Usage: add-address [name] [address]"
+    name = args[0]
+    address = " ".join(args[1:])
     record = book.find(name)
     if not record:
         return "Contact not found."
@@ -126,7 +127,7 @@ def add_email(args, book: AddressBook):
     Usage: add-email [name] [email]
     """
     if len(args) != 2:
-        return "Usage: add-email [name] [DD.MM.YYYY]"
+        return "Usage: add-email [name] [email]"
     name, email = args
     record = book.find(name)
     if not record:
@@ -303,6 +304,19 @@ def delete_contact(args, book: AddressBook):
     book.delete(name)
     return "Contact deleted."
 
+@input_error
+def search(args, book):
+    """
+    Search for contacts by name, email, or address.
+    Usage: search [query]
+    """
+    if len(args) != 1:
+        return "Usage: search [query]"
+    query = args[0]
+    results = book.search(query)
+    if not results:
+        return "No matching contacts found."
+    return "\n".join(str(record) for record in results)
 
 def help_command():
     """

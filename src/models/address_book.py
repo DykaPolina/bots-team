@@ -40,3 +40,17 @@ class AddressBook(UserDict):
                     result.append(f"{record.name.value}: {next_bday.strftime('%d.%m.%Y')}")
 
         return "\n".join(result) if result else "No upcoming birthdays."
+
+    def search(self, query: str):
+        """
+        Return a list of contacts whose name, email, or address contains the query string (case-insensitive).
+        """
+        result = []
+        query_lower = query.lower()
+        for record in self.data.values():
+            name_match = query_lower in record.name.value.lower()
+            address_match = query_lower in record.address.value.lower() if record.address else False
+            email_match = any(query_lower in email.value.lower() for email in record.emails)
+            if name_match or address_match or email_match:
+                result.append(record)
+        return result
