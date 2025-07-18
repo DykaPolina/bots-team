@@ -2,12 +2,18 @@
 Handlers for each bot command.
 """
 
-from .utils import input_error
+from .utils import input_error, execute_command
 from src.models.record import Record
+from src.models.classNotes import Notes
+from src.models.address_book import AddressBook
+from src.models.storage import save_data
 
 
-@input_error
-def add_contact(args, book):
+def command_hello():
+    return "How can I help you?"
+
+
+def add_contact(args, book: AddressBook):
     """
     Add a new contact or phones to an existing one.
     Usage: add [name] [phone1] [phone2] ...
@@ -27,8 +33,7 @@ def add_contact(args, book):
     return message
 
 
-@input_error
-def change_contact(args, book):
+def change_contact(args, book: AddressBook):
     """
     Change a phone number for an existing contact.
     Usage: change [name] [old_phone] [new_phone]
@@ -43,8 +48,7 @@ def change_contact(args, book):
     return "Phone updated." if success else "Old phone number not found."
 
 
-@input_error
-def show_phone(args, book):
+def show_phone(args, book: AddressBook):
     """
     Show all phone numbers of a contact.
     Usage: phone [name]
@@ -58,7 +62,7 @@ def show_phone(args, book):
     return record.get_phones() or "No phone numbers saved."
 
 
-def show_all(book, args=None):
+def show_all(args, book: AddressBook):
     """
     Show all records in the address book.
     Usage: all
@@ -69,8 +73,8 @@ def show_all(book, args=None):
         return "No contacts found."
     return "\n".join(str(record) for record in book.values())
 
-@input_error
-def set_address(args, book):
+
+def set_address(args, book: AddressBook):
     """
     Set an address to an existing contact.
     Usage: add-address [name] [address]
@@ -85,8 +89,8 @@ def set_address(args, book):
     record.set_address(address)
     return "Address added."
 
-@input_error
-def show_address(args, book):
+
+def show_address(args, book: AddressBook):
     """
     Show the address of a contact.
     Usage: show-address [name]
@@ -99,8 +103,8 @@ def show_address(args, book):
         return "Contact not found."
     return record.get_address() or "No address saved."
 
-@input_error
-def remove_address(args, book):
+
+def remove_address(args, book: AddressBook):
     """
     Remove an address from a contact.
     Usage: remove-address [name]
@@ -116,8 +120,8 @@ def remove_address(args, book):
     record.remove_address()
     return "Address removed."
 
-@input_error
-def add_email(args, book):
+
+def add_email(args, book: AddressBook):
     """
     Add an email to an existing contact.
     Usage: add-email [name] [email]
@@ -131,8 +135,8 @@ def add_email(args, book):
     record.add_email(email)
     return "Email added."
 
-@input_error
-def change_email(args, book):
+
+def change_email(args, book: AddressBook):
     """
     Change an email for an existing contact.
     Usage: change-email [name] [old_email] [new_email]
@@ -146,8 +150,8 @@ def change_email(args, book):
     success = record.edit_email(old_email, new_email)
     return "Email updated." if success else "Old email not found."
 
-@input_error
-def show_email(args, book):
+
+def show_email(args, book: AddressBook):
     """
     Show all emails of a contact.
     Usage: show-email [name]
@@ -160,8 +164,8 @@ def show_email(args, book):
         return "Contact not found."
     return record.get_emails() or "No emails saved."
 
-@input_error
-def remove_email(args, book):
+
+def remove_email(args, book: AddressBook):
     """
     Remove an email from a contact.
     Usage: remove-email [name] [email]
@@ -179,8 +183,8 @@ def remove_email(args, book):
     record.remove_email(email)
     return "Email removed."
 
-@input_error
-def find_email(args, book):
+
+def find_email(args, book: AddressBook):
     """
     Find an email in a contact.
     Usage: find-email [name] [email]
@@ -194,8 +198,8 @@ def find_email(args, book):
     found = record.find_email(email)
     return f"Email found: {found.value}" if found else "Email not found."
 
-@input_error
-def set_birthday(args, book):
+
+def set_birthday(args, book: AddressBook):
     """
     Set a birthday to an existing contact.
     Usage: add-birthday [name] [DD.MM.YYYY]
@@ -210,8 +214,7 @@ def set_birthday(args, book):
     return "Birthday added."
 
 
-@input_error
-def show_birthday(args, book):
+def show_birthday(args, book: AddressBook):
     """
     Show the birthday of a contact.
     Usage: show-birthday [name]
@@ -224,8 +227,8 @@ def show_birthday(args, book):
         return "Contact not found."
     return record.get_birthday() or "No birthday saved."
 
-@input_error
-def remove_birthday(args, book):
+
+def remove_birthday(args, book: AddressBook):
     """
     Remove a birthday from a contact.
     Usage: remove-birthday [name]
@@ -241,8 +244,8 @@ def remove_birthday(args, book):
     record.remove_birthday()
     return "Birthday removed."
 
-@input_error
-def birthdays(args, book):
+
+def birthdays(args, book: AddressBook):
     """
     Call the address book method to get upcoming birthdays.
     Usage: birthdays [days]
@@ -253,8 +256,7 @@ def birthdays(args, book):
     return book.get_upcoming_birthdays(int(days))
 
 
-@input_error
-def remove_phone(args, book):
+def remove_phone(args, book: AddressBook):
     """
     Remove a phone number from a contact.
     Usage: remove-phone [name] [phone]
@@ -273,8 +275,7 @@ def remove_phone(args, book):
     return "Phone removed."
 
 
-@input_error
-def find_phone(args, book):
+def find_phone(args, book: AddressBook):
     """
     Find a phone number in a contact.
     Usage: find-phone [name] [phone]
@@ -289,8 +290,7 @@ def find_phone(args, book):
     return f"Phone found: {found.value}" if found else "Phone not found."
 
 
-@input_error
-def delete_contact(args, book):
+def delete_contact(args, book: AddressBook):
     """
     Delete a contact completely.
     Usage: delete-contact [name]
@@ -318,7 +318,7 @@ def search(args, book):
         return "No matching contacts found."
     return "\n".join(str(record) for record in results)
 
-def help_command(args, book):
+def help_command():
     """
     Show available commands and usage.
     Usage: help
@@ -341,3 +341,81 @@ def help_command(args, book):
         "  help                          - Show this help message\n"
         "  close / exit                  - Exit the program"
     )
+
+
+def command_exit(book: AddressBook):
+    save_data(book)
+    raise SystemExit("Good bye!")
+
+
+def note_format(args):
+        return " ".join(args)
+
+
+def command_add_note(args, notes: Notes):
+    note = note_format(args)
+    return notes.add_note(note)
+
+
+def command_edit_note(args, notes: Notes):
+    note, new_note = note_format(args).split(";")
+    return notes.edit_note(note, new_note.lstrip())
+
+
+def command_find_all_note(notes: Notes):
+    return notes.find_all_note()
+
+
+def command_delete_note(args, notes: Notes):
+    note = note_format(args)
+    return notes.delete_note(note)
+
+
+def command_find_text_in_note(args, notes: Notes):
+    text = note_format(args)
+    return notes.find_text_in_note(text)
+
+
+@input_error
+def command_hindler(command, book, args, notes):
+    command_list = {
+        "hello": command_hello,
+
+        "add": add_contact,
+        "change": change_contact,
+        "phone": show_phone,
+        "all": show_all,
+
+        "set-adress": set_address,
+        "show-address": show_address,
+        "remove_address": remove_address,
+
+        "add-email": add_email,
+        "change_email": change_email,
+        "show_email": show_email,
+        "remove_email": remove_email,
+        "find_email": find_email,
+
+        "set-birthday": set_birthday,
+        "show-birthday": show_birthday,
+        "remove_birthday": remove_birthday,
+        "birthdays": birthdays,
+
+        "remove-phone": remove_phone,
+        "find-phone": find_phone,
+        "delete-contact": delete_contact,
+
+        "help": help_command,
+        "exit": command_exit,
+        "close": command_exit,
+
+        "add-note": command_add_note,
+        "edit-note": command_edit_note,
+        "find-all-note": command_find_all_note,
+        "delete-note": command_delete_note,
+        "find-text-in-note": command_find_text_in_note,
+
+    }
+
+    return execute_command(command_list[command], {"book": book, "args": args, "notes": notes})
+    
