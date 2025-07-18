@@ -74,6 +74,8 @@ def execute_command(command, args, book):
             print(find_phone(args, book))
         case "delete-contact":
             print(delete_contact(args, book))
+        case "search":
+            print(search(args, book))
         case "help":
             print(help_command(args, book))
         case "search":
