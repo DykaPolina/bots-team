@@ -56,7 +56,7 @@ def show_phone(args, book, notes: Notes):
     record = book.find(name)
     if not record:
         return "Contact not found."
-    return record.get_phones()
+    return record.get_phones() or "No phone numbers saved."
 
 
 def show_all(args, book, notes: Notes):
@@ -70,6 +70,129 @@ def show_all(args, book, notes: Notes):
         return "No contacts found."
     return "\n".join(str(record) for record in book.values())
 
+@input_error
+def set_address(args, book):
+    """
+    Set an address to an existing contact.
+    Usage: add-address [name] [address]
+    """
+    if len(args) != 2:
+        return "Usage: add-address [name] [DD.MM.YYYY]"
+    name, address = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    record.set_address(address)
+    return "Address added."
+
+@input_error
+def show_address(args, book):
+    """
+    Show the address of a contact.
+    Usage: show-address [name]
+    """
+    if len(args) != 1:
+        return "Usage: show-address [name]"
+    name = args[0]
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    return record.get_address() or "No address saved."
+
+@input_error
+def remove_address(args, book):
+    """
+    Remove an address from a contact.
+    Usage: remove-address [name]
+    """
+    if len(args) != 1:
+        return "Usage: remove-address [name]"
+    name = args[0]
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    if not record.address():
+        return "The contact has no address saved."
+    record.remove_address()
+    return "Address removed."
+
+@input_error
+def add_email(args, book):
+    """
+    Add an email to an existing contact.
+    Usage: add-email [name] [email]
+    """
+    if len(args) != 2:
+        return "Usage: add-email [name] [DD.MM.YYYY]"
+    name, email = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    record.add_email(email)
+    return "Email added."
+
+@input_error
+def change_email(args, book):
+    """
+    Change an email for an existing contact.
+    Usage: change-email [name] [old_email] [new_email]
+    """
+    if len(args) != 3:
+        return "Usage: change [name] [old_email] [new_email]"
+    name, old_email, new_email = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    success = record.edit_email(old_email, new_email)
+    return "Email updated." if success else "Old email not found."
+
+@input_error
+def show_email(args, book):
+    """
+    Show all emails of a contact.
+    Usage: show-email [name]
+    """
+    if len(args) != 1:
+        return "Usage: show-email [name]"
+    name = args[0]
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    return record.get_emails() or "No emails saved."
+
+@input_error
+def remove_email(args, book):
+    """
+    Remove an email from a contact.
+    Usage: remove-email [name] [email]
+    """
+    if len(args) != 2:
+        return "Usage: remove-email [name] [email]"
+    name, email = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    if not record.find_email(email):
+        return "Email not found."
+    if not record.emails:
+        return "The contact has no emails saved."
+    record.remove_email(email)
+    return "Email removed."
+
+@input_error
+def find_email(args, book):
+    """
+    Find an email in a contact.
+    Usage: find-email [name] [email]
+    """
+    if len(args) != 2:
+        return "Usage: find-email [name] [email]"
+    name, email = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    found = record.find_email(email)
+    return f"Email found: {found.value}" if found else "Email not found."
 
 @input_error
 def set_birthday(args, book, notes: Notes):
@@ -99,18 +222,35 @@ def show_birthday(args, book, notes: Notes):
     record = book.find(name)
     if not record:
         return "Contact not found."
-    return record.get_birthday() or "No birthday set."
+    return record.get_birthday() or "No birthday saved."
 
+@input_error
+def remove_birthday(args, book):
+    """
+    Remove a birthday from a contact.
+    Usage: remove-birthday [name]
+    """
+    if len(args) != 1:
+        return "Usage: remove-birthday [name]"
+    name = args[0]
+    record = book.find(name)
+    if not record:
+        return "Contact not found."
+    if not record.birthday():
+        return "The contact has no birthday saved."
+    record.remove_birthday()
+    return "Birthday removed."
 
 @input_error
 def birthdays(args, book, notes: Notes):
     """
     Call the address book method to get upcoming birthdays.
-    Usage: birthdays
+    Usage: birthdays [days]
     """
-    if args:
-        return "Usage: birthdays"
-    return book.get_upcoming_birthdays(7)
+    if len(args) != 1:
+        return "Usage: birthdays [days]"
+    days = args[0]
+    return book.get_upcoming_birthdays(int(days))
 
 
 @input_error
@@ -127,6 +267,8 @@ def remove_phone(args, book, notes: Notes):
         return "Contact not found."
     if not record.find_phone(phone):
         return "Phone number not found."
+    if not record.phones:
+        return "The contact has no emails saved."
     record.remove_phone(phone)
     return "Phone removed."
 

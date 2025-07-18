@@ -27,14 +27,14 @@ class Record:
     def edit_phone(self, old_phone, new_phone):
         """Replace an old phone number with a new one."""
         for i, p in enumerate(self.phones):
-            if p.value == old_phone:
+            if p.value == Phone(old_phone).value:
                 self.phones[i] = Phone(new_phone)
                 return True
         return False
 
     def find_phone(self, phone):
         """Find and return a specific phone number."""
-        return next((p for p in self.phones if p.value == phone), None)
+        return next((p for p in self.phones if p.value == Phone(phone).value), None)
 
     def set_address(self, address: str):
         """Add or update the address."""
@@ -59,6 +59,10 @@ class Record:
                 self.emails[i] = Email(new_email)
                 return True
         return False
+
+    def find_email(self, email):
+        """Find and return a specific email."""
+        return next((e for e in self.emails if e.value == email), None)
 
     def set_birthday(self, birthday_str):
         """Add or update the birthday."""
