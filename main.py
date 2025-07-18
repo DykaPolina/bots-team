@@ -3,7 +3,7 @@ Entry point for the assistant bot.
 Handles command parsing and control loop.
 """
 
-from src.models.storage import load_data, save_data
+from src.models.storage import load_data
 from src.handlers.utils import parse_input
 from src.handlers.handlers import command_hindler
 from src.models.classNotes import Notes
