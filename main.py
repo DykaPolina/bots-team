@@ -9,10 +9,9 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.formatted_text import HTML
 from prompt_toolkit import print_formatted_text
 
-from src.models.storage import load_data
+from src.models.storage import load_data, load_notes
 from src.handlers.utils import parse_input, suggest_command
 from src.handlers.handlers import command_hindler, get_available_commands
-from src.models.classNotes import Notes
 
 
 def print_colored(text):
@@ -21,7 +20,7 @@ def print_colored(text):
 
 def main():
     book = load_data()
-    notes = Notes()
+    notes = load_notes()
     available_commands = get_available_commands()
     completer = WordCompleter(available_commands, ignore_case=True)
     session = PromptSession(completer=completer)
