@@ -11,7 +11,7 @@ from prompt_toolkit import print_formatted_text
 
 from src.models.storage import load_data, load_notes
 from src.handlers.utils import parse_input, suggest_command
-from src.handlers.handlers import command_hindler, get_available_commands
+from src.handlers.handlers import command_handler, get_available_commands
 
 
 def print_colored(text):
@@ -48,7 +48,7 @@ def main():
 
         if command in available_commands:
             try:
-                result = command_hindler(command, book, args, notes)
+                result = command_handler(command, book, args, notes)
                 if result is None:
                     break
                 print_colored(f"<lightgreen>{result}</lightgreen>")
@@ -62,7 +62,7 @@ def main():
                     HTML(f"<ansiyellow>Команда '{command}' не розпізнана. Можливо, ви мали на увазі: '<b>{suggested}</b>'? (y/n)</ansiyellow> ")
                 ).strip().lower()
                 if confirm == 'y':
-                    result = command_hindler(suggested, book, args, notes)
+                    result = command_handler(suggested, book, args, notes)
                     if result is None:
                         break
                     print_colored(f"<lightgreen>{result}</lightgreen>")
