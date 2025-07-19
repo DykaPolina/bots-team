@@ -304,7 +304,7 @@ def delete_contact(args, book: AddressBook):
     return "Contact deleted."
 
 
-def help_command():
+def help_command(args):
     """
     Show available commands and usage.
     Usage: help
@@ -362,6 +362,24 @@ def command_find_text_in_note(args, notes: Notes):
     return notes.find_text_in_note(text)
 
 
+def command_add_tag(args, notes: Notes):
+    note, tags = note_format(args).split(";")
+    instance_note = notes.find_note(note)
+    return instance_note.add_tags(tags.split())
+
+
+def command_delete_tags(args, notes: Notes):
+    note, tags = note_format(args).split(";")
+    instance_note = notes.find_note(note)
+    return instance_note.delete_tag(tags.split())
+
+
+def command_show_all_tags(args, notes: Notes):
+    note = note_format(args)
+    instance_note = notes.find_note(note)
+    return instance_note.show_all_tag()
+
+
 @input_error
 def command_hindler(command, book, args, notes):
     command_list = {
@@ -400,6 +418,10 @@ def command_hindler(command, book, args, notes):
         "find-all-note": command_find_all_note,
         "delete-note": command_delete_note,
         "find-text-in-note": command_find_text_in_note,
+
+        "add-tags": command_add_tag,
+        "delete-tags": command_delete_tags,
+        "all-tags": command_show_all_tags,
 
     }
 
