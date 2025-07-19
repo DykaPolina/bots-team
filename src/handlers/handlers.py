@@ -4,7 +4,7 @@ Handlers for each bot command.
 
 from .utils import input_error, execute_command
 from src.models.record import Record
-from src.models.classNotes import Notes
+from src.models.notes import Notes
 from src.models.address_book import AddressBook
 from src.models.storage import save_data, save_notes
 
@@ -457,6 +457,6 @@ command_list = {
 
 
 @input_error
-def command_hindler(command, book, args, notes):
+def command_handler(command, book, args, notes):
     return execute_command(command_list[command], {"book": book, "args": args, "notes": notes})
     
