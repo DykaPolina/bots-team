@@ -80,10 +80,10 @@ def show_all(args, book: AddressBook):
 def set_address(args, book: AddressBook):
     """
     Set an address to an existing contact.
-    Usage: add-address [name] [address]
+    Usage: set-address [name] [address]
     """
     if len(args) < 2:
-        return "Usage: add-address [name] [address]"
+        return "Usage: set-address [name] [address]"
     name = args[0]
     address = " ".join(args[1:])
     record = book.find(name)
@@ -205,10 +205,10 @@ def find_email(args, book: AddressBook):
 def set_birthday(args, book: AddressBook):
     """
     Set a birthday to an existing contact.
-    Usage: add-birthday [name] [DD.MM.YYYY]
+    Usage: set-birthday [name] [DD.MM.YYYY]
     """
     if len(args) != 2:
-        return "Usage: add-birthday [name] [DD.MM.YYYY]"
+        return "Usage: set-birthday [name] [DD.MM.YYYY]"
     name, bday = args
     record = book.find(name)
     if not record:
