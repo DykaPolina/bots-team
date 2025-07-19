@@ -41,7 +41,7 @@ def main():
 
         parsed = parse_input(user_input)
         if not parsed:
-            print_colored("<ansiyellow>Не вдалося розпізнати команду. Введіть 'help' для списку.</ansiyellow>")
+            print_colored("<ansiyellow>Failed to recognize the command. Enter 'help' to view available commands.</ansiyellow>")
             continue
 
         command, args = parsed
@@ -59,7 +59,7 @@ def main():
             suggested = suggest_command(command, available_commands)
             if suggested:
                 confirm = session.prompt(
-                    HTML(f"<ansiyellow>Команда '{command}' не розпізнана. Можливо, ви мали на увазі: '<b>{suggested}</b>'? (y/n)</ansiyellow> ")
+                    HTML(f"<ansiyellow>The command '{command}' is not recognized. Did you mean: '<b>{suggested}</b>'? (y/n)</ansiyellow> ")
                 ).strip().lower()
                 if confirm == 'y':
                     result = command_handler(suggested, book, args, notes)
@@ -67,9 +67,9 @@ def main():
                         break
                     print_colored(f"<lightgreen>{result}</lightgreen>")
                 else:
-                    print_colored("<ansiyellow>Спробуйте іншу команду.</ansiyellow>")
+                    print_colored("<ansiyellow>Try a different command.</ansiyellow>")
             else:
-                print_colored("<ansired>Невідома команда. Введіть 'help' для списку.</ansired>")
+                print_colored("<ansired>Unknown command. Enter 'help' to view available commands.</ansired>")
 
 
 if __name__ == "__main__":
