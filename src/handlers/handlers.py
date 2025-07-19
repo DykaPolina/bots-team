@@ -6,7 +6,7 @@ from .utils import input_error, execute_command
 from src.models.record import Record
 from src.models.classNotes import Notes
 from src.models.address_book import AddressBook
-from src.models.storage import save_data
+from src.models.storage import save_data, save_notes
 
 def get_available_commands():
     return list(command_list.keys())
@@ -374,8 +374,9 @@ def help_command(args=None):
     )
 
 
-def command_exit(book: AddressBook):
+def command_exit(book: AddressBook, notes: Notes):
     save_data(book)
+    save_notes(notes)
     raise SystemExit("Good bye!")
 
 
