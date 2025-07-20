@@ -3,9 +3,9 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import pytest
-from src.models.address_book import AddressBook
-from src.models.notes import Notes
-from src.handlers.handlers import command_handler
+from bots_team.models.address_book import AddressBook
+from bots_team.models.notes import Notes
+from bots_team.handlers.handlers import command_handler
 
 
 @pytest.fixture

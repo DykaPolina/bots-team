@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import pytest
-from src.handlers.utils import parse_input, suggest_command, input_error, execute_command
+from bots_team.handlers.utils import parse_input, suggest_command, input_error, execute_command
 
 
 
