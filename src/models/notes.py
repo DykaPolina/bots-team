@@ -1,12 +1,43 @@
 from collections import UserList
 
+class Tag:
+    def __init__(self, value) -> None:
+        self.value = value
+
+    def __str__(self) -> str:
+        return self.value
+    
 class Note:
     def __init__(self, note) -> None:
         self.note = note
+        self.tags = []
 
     def __str__(self) -> str:
-        return self.note
+        return f"Note {self.note},\n Tags {[tag.value for tag in self.tags]}"
+    
+    def __exist_tag(self, tag):
+        if self.find_tag(tag):
+            raise Exception("Tag already exist")
+    
+    def show_all_tag(self):
+        return [tag.value for tag in self.tags]
 
+    def add_tags(self, tags: list):
+        for t in tags:
+            self.__exist_tag(t)
+            self.tags.append(Tag(t))
+        return f"{tags} tags added successfully"
+
+    def find_tag(self, tag) -> Tag | None:
+        for i in self.tags:
+            if i.value == tag:
+                return i      
+    
+    def delete_tag(self, tags):
+        for t in tags:
+            self.tags.remove(self.find_tag(t))
+
+        return f"{tags} tags deleted successfully"
 
 class Notes(UserList):
 
@@ -18,11 +49,11 @@ class Notes(UserList):
         if not self.find_note(note):
             raise Exception("Note does not exist")
         
-
     def find_all_note(self) -> list:
         return [notes.note for notes in self.data]
     
-    def find_note(self, note: str):
+    def find_note(self, note: str) -> Note:
+
         for notes in self.data:
             if notes.note == note:
                 return notes
@@ -53,30 +84,3 @@ class Notes(UserList):
                 result.append(notes.note)
 
         return result
-
-
-
-    
-if __name__ == "__main__":
-    note = Notes()
-
-    note.add_note("some note1")
-    note.add_note("some note2")
-    note.add_note("some note3")
-    note.add_note("note about record")
-    note.add_note("some note4")
-    note.add_note("is a good palayer")
-    
-    print(note.find_all_note())
-
-    print(note.find_note("some note4"))
-
-    print(note.delete_note("some note4"))
-    print(note.find_all_note())
-
-    print(note.edit_note("some note1", "some note1222"))
-    print(note.find_all_note())
-
-    print(note.find_text_in_note("some"))
-    print(note.find_text_in_note("palayer"))
-
