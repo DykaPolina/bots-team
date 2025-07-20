@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import pytest
-from src.models.record import Record
+from bots_team.models.record import Record
 
 
 def test_add_and_find_phone():

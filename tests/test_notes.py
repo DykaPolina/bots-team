@@ -3,7 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.models.notes import Notes
+from bots_team.models.notes import Notes
 
 
 def test_add_note_success():
