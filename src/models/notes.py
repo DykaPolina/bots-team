@@ -53,6 +53,7 @@ class Notes(UserList):
         return [notes.note for notes in self.data]
     
     def find_note(self, note: str) -> Note:
+
         for notes in self.data:
             if notes.note == note:
                 return notes
@@ -83,34 +84,3 @@ class Notes(UserList):
                 result.append(notes.note)
 
         return result
-
-if __name__ == "__main__":
-    notes = Notes()
-    note = Note("Some text 333")
-
-    notes.add_note("some note1")
-    notes.add_note("some note2")
-    notes.add_note("some note3")
-    notes.add_note("note about record")
-    notes.add_note("some note4")
-    notes.add_note("is a good palayer")
-    
-    print(notes.find_all_note())
-
-    print(notes.find_note("some note4"))
-
-    print(notes.delete_note("some note4"))
-    print(notes.find_all_note())
-
-    print(notes.edit_note("some note1", "some note1222"))
-    print(notes.find_all_note())
-
-    print(notes.find_text_in_note("some"))
-    print(notes.find_text_in_note("palayer"))
-
-    print(note)
-    print(note.add_tags(["tag2", "tag4", "tag3"]))
-    print(note)
-
-    print(note.delete_tag("tag2"))
-    print(note)

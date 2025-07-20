@@ -3,9 +3,13 @@ Handlers for each bot command.
 """
 
 from .utils import input_error, execute_command
+from src.models.record import Record
 from src.models.notes import Notes
 from src.models.address_book import AddressBook
-from src.models.storage import save_data
+from src.models.storage import save_data, save_notes
+
+def get_available_commands():
+    return list(command_list.keys())
 
 from src.handlers.handlers_contact import add_contact, change_contact, show_phone, show_all, remove_phone, find_phone, delete_contact
 from src.handlers.handlers_address import set_address, show_address, remove_address
@@ -71,11 +75,12 @@ def help_command(args=None):
         "  close / exit                   - Exit the assistant\n"
     )
 
-def command_exit(book: AddressBook):
+def command_exit(book: AddressBook, notes: Notes):
     save_data(book)
+    save_notes(notes)
     raise SystemExit("Good bye!")
 
-
+    
 command_list = {
         "hello": command_hello,
 

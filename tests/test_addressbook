@@ -1,0 +1,66 @@
+import pytest
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from datetime import date, timedelta
+
+from src.models.address_book import AddressBook
+from src.models.record import Record
+
+
+def test_add_and_find_record():
+    book = AddressBook()
+    record = Record("Alice")
+    book.add_record(record)
+
+    found = book.find("Alice")
+    assert found is record
+    assert found.name.value == "Alice"
+
+
+def test_delete_record():
+    book = AddressBook()
+    record = Record("Bob")
+    book.add_record(record)
+    assert book.find("Bob") is not None
+
+    book.delete("Bob")
+    assert book.find("Bob") is None
+
+
+def test_get_upcoming_birthdays():
+    book = AddressBook()
+    record = Record("Carol")
+    today = date.today()
+    next_birthday = today + timedelta(days=3)
+    record.set_birthday(next_birthday.strftime("%d.%m.%Y"))
+    book.add_record(record)
+
+    result = book.get_upcoming_birthdays(5)
+    assert "Carol" in result
+
+    result_out_of_range = book.get_upcoming_birthdays(1)
+    assert "Carol" not in result_out_of_range
+
+
+def test_search_by_name():
+    book = AddressBook()
+    record = Record("Dmytro")
+    book.add_record(record)
+
+    results = book.search("dmy")
+    assert record in results
+
+
+def test_search_by_email_and_address():
+    book = AddressBook()
+    record = Record("Eve")
+    record.add_email("eve@example.com")
+    record.set_address("Kyiv, Ukraine")
+    book.add_record(record)
+
+    by_email = book.search("eve@")
+    assert record in by_email
+
+    by_address = book.search("kyiv")
+    assert record in by_address

@@ -1,5 +1,6 @@
 import pickle
 from src.models.address_book import AddressBook
+from src.models.notes import Notes
 
 
 def save_data(book, filename="src/data/addressbook.pkl"):
@@ -14,3 +15,17 @@ def load_data(filename="src/data/addressbook.pkl"):
             return pickle.load(f)
     except FileNotFoundError:
         return AddressBook()
+    
+
+def save_notes(notes, filename="src/data/notesbook.pkl"):
+    """Save Notes to a file using pickle."""
+    with open(filename, "wb") as file:
+        pickle.dump(notes, file)
+
+def load_notes(filename="src/data/notesbook.pkl"):
+    """Load Notes from a file using pickle."""
+    try:
+        with open(filename, "rb") as file:
+            return pickle.load(file)
+    except FileNotFoundError:
+        return Notes()

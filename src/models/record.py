@@ -22,7 +22,8 @@ class Record:
 
     def remove_phone(self, phone):
         """Remove a phone number from the contact."""
-        self.phones = [p for p in self.phones if p.value != phone]
+        phone_to_remove = Phone(phone).value
+        self.phones = [p for p in self.phones if p.value != phone_to_remove]
 
     def edit_phone(self, old_phone, new_phone):
         """Replace an old phone number with a new one."""
