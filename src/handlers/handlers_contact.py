@@ -77,7 +77,7 @@ def remove_phone(args, book: AddressBook):
     if not record.find_phone(phone):
         return "Phone number not found."
     if not record.phones:
-        return "The contact has no emails saved."
+        return "The contact has no phones saved."
     record.remove_phone(phone)
     return "Phone removed."
 
@@ -110,5 +110,19 @@ def delete_contact(args, book: AddressBook):
         return "Contact not found."
     book.delete(name)
     return "Contact deleted."
+
+
+def search(args, book):
+    """
+    Search for contacts by name, email, or address.
+    Usage: search [query]
+    """
+    if len(args) != 1:
+        return "Usage: search [query]"
+    query = args[0]
+    results = book.search(query)
+    if not results:
+        return "No matching contacts found."
+    return "\n".join(str(record) for record in results)
 
 

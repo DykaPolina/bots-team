@@ -84,3 +84,11 @@ class Notes(UserList):
                 result.append(notes.note)
 
         return result
+    
+    def find_notes_by_tag(self, tag: str) -> list:
+        result = []
+        for note in self.data:
+            if any(t.value == tag for t in note.tags):
+                result.append(note.note)
+        return result
+
