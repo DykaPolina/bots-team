@@ -42,3 +42,4 @@ logs/
 *.json
 docs/_build/
 *.docset
+*.egg-info/

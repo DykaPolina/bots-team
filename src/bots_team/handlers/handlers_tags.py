@@ -1,5 +1,5 @@
-from src.models.notes import Notes
-from src.handlers.handlers_note import note_format
+from bots_team.models.notes import Notes
+from bots_team.handlers.handlers_note import note_format
 
 def command_add_tag(args, notes: Notes):
     if ";" not in note_format(args):

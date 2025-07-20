@@ -1,4 +1,4 @@
-from src.models.address_book import AddressBook
+from bots_team.models.address_book import AddressBook
 
 
 def set_birthday(args, book: AddressBook):
