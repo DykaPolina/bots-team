@@ -4,10 +4,10 @@ from src.models.address_book import AddressBook
 def set_birthday(args, book: AddressBook):
     """
     Set a birthday to an existing contact.
-    Usage: add-birthday [name] [DD.MM.YYYY]
+    Usage: set-birthday [name] [DD.MM.YYYY]
     """
     if len(args) != 2:
-        return "Usage: add-birthday [name] [DD.MM.YYYY]"
+        return "Usage: set-birthday [name] [DD.MM.YYYY]"
     name, bday = args
     record = book.find(name)
     if not record:

@@ -3,11 +3,12 @@ from src.models.address_book import AddressBook
 def set_address(args, book: AddressBook):
     """
     Set an address to an existing contact.
-    Usage: add-address [name] [address]
+    Usage: set-address [name] [address]
     """
-    if len(args) != 2:
-        return "Usage: add-address [name] [DD.MM.YYYY]"
-    name, address = args
+    if len(args) < 2:
+        return "Usage: set-address [name] [address]"
+    name = args[0]
+    address = " ".join(args[1:])
     record = book.find(name)
     if not record:
         return "Contact not found."

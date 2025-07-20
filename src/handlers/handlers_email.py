@@ -6,7 +6,7 @@ def add_email(args, book: AddressBook):
     Usage: add-email [name] [email]
     """
     if len(args) != 2:
-        return "Usage: add-email [name] [DD.MM.YYYY]"
+        return "Usage: add-email [name] [email]"
     name, email = args
     record = book.find(name)
     if not record:

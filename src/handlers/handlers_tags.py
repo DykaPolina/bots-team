@@ -1,4 +1,4 @@
-from src.models.classNotes import Notes
+from src.models.notes import Notes
 from src.handlers.handlers_note import note_format
 
 def command_add_tag(args, notes: Notes):

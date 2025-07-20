@@ -6,7 +6,7 @@ Handles command parsing and control loop.
 from src.models.storage import load_data
 from src.handlers.utils import parse_input
 from src.handlers.handlers import command_hindler
-from src.models.classNotes import Notes
+from src.models.notes import Notes
 
 def main():
     """Run the command-line assistant bot."""
