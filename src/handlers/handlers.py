@@ -3,20 +3,16 @@ Handlers for each bot command.
 """
 
 from .utils import input_error, execute_command
-from src.models.record import Record
 from src.models.notes import Notes
 from src.models.address_book import AddressBook
 from src.models.storage import save_data, save_notes
 
-def get_available_commands():
-    return list(command_list.keys())
-
-from src.handlers.handlers_contact import add_contact, change_contact, show_phone, show_all, remove_phone, find_phone, delete_contact
+from src.handlers.handlers_contact import add_contact, change_contact, show_phone, show_all, remove_phone, find_phone, delete_contact, search
 from src.handlers.handlers_address import set_address, show_address, remove_address
 from src.handlers.handlers_email import add_email, change_email, show_email, remove_email, find_email
 from src.handlers.handlers_birthday import set_birthday, show_birthday, remove_birthday, birthdays
 from src.handlers.handlers_note import command_add_note, command_delete_note, command_edit_note, command_find_all_note, command_find_text_in_note
-from src.handlers.handlers_tags import command_add_tag, command_delete_tags, command_show_all_tags
+from src.handlers.handlers_tags import command_add_tag, command_delete_tags, command_show_all_tags, command_find_notes_by_tag
 
 def get_available_commands():
     return list(command_list.keys())
@@ -69,6 +65,11 @@ def help_command(args=None):
         "  delete-note [text]             - Delete a note\n"
         "  find-all-note                  - Show all notes\n"
         "  find-text-in-note [text]       - Find notes containing text\n"
+        "Tags:\n"
+        "  add-tags [note]; [tag1 tag2]   - Add tags to a note\n"
+        "  delete-tags [note]; [tag1 tag2]- Remove tags from a note\n"
+        "  all-tags [note]                - Show all tags of a note\n"
+        "  find-by-tag [tag]                - Find all notes with a specific tag\n"
         "\n"
         "System:\n"
         "  help                           - Show this help message\n"
@@ -108,6 +109,8 @@ command_list = {
         "find-phone": find_phone,
         "delete-contact": delete_contact,
 
+        "search": search,
+
         "help": help_command,
         "exit": command_exit,
         "close": command_exit,
@@ -121,6 +124,7 @@ command_list = {
         "add-tags": command_add_tag,
         "delete-tags": command_delete_tags,
         "all-tags": command_show_all_tags,
+        "find-by-tag": command_find_notes_by_tag,
 
     }
 

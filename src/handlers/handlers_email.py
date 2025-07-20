@@ -21,7 +21,7 @@ def change_email(args, book: AddressBook):
     Usage: change-email [name] [old_email] [new_email]
     """
     if len(args) != 3:
-        return "Usage: change [name] [old_email] [new_email]"
+        return "Usage: change-email [name] [old_email] [new_email]"
     name, old_email, new_email = args
     record = book.find(name)
     if not record:

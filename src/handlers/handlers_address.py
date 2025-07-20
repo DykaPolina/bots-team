@@ -41,7 +41,7 @@ def remove_address(args, book: AddressBook):
     record = book.find(name)
     if not record:
         return "Contact not found."
-    if not record.address():
+    if not record.address:
         return "The contact has no address saved."
     record.remove_address()
     return "Address removed."

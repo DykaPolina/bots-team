@@ -41,7 +41,7 @@ def remove_birthday(args, book: AddressBook):
     record = book.find(name)
     if not record:
         return "Contact not found."
-    if not record.birthday():
+    if not record.birthday:
         return "The contact has no birthday saved."
     record.remove_birthday()
     return "Birthday removed."
