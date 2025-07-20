@@ -1,4 +1,4 @@
-from src.models.notes import Notes
+from bots_team.models.notes import Notes
 
 def note_format(args):
         return " ".join(args)

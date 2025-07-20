@@ -9,9 +9,9 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.formatted_text import HTML
 from prompt_toolkit import print_formatted_text
 
-from src.models.storage import load_data, load_notes
-from src.handlers.utils import parse_input, suggest_command
-from src.handlers.handlers import command_handler, get_available_commands
+from bots_team.models.storage import load_data, load_notes
+from bots_team.handlers.utils import parse_input, suggest_command
+from bots_team.handlers.handlers import command_handler, get_available_commands
 
 
 def print_colored(text):

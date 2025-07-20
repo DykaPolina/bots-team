@@ -1,5 +1,5 @@
-from src.models.record import Record
-from src.models.address_book import AddressBook
+from bots_team.models.record import Record
+from bots_team.models.address_book import AddressBook
 
 
 def add_contact(args, book: AddressBook):

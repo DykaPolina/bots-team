@@ -3,16 +3,16 @@ Handlers for each bot command.
 """
 
 from .utils import input_error, execute_command
-from src.models.notes import Notes
-from src.models.address_book import AddressBook
-from src.models.storage import save_data, save_notes
+from bots_team.models.notes import Notes
+from bots_team.models.address_book import AddressBook
+from bots_team.models.storage import save_data, save_notes
 
-from src.handlers.handlers_contact import add_contact, change_contact, show_phone, show_all, remove_phone, find_phone, delete_contact, search
-from src.handlers.handlers_address import set_address, show_address, remove_address
-from src.handlers.handlers_email import add_email, change_email, show_email, remove_email, find_email
-from src.handlers.handlers_birthday import set_birthday, show_birthday, remove_birthday, birthdays
-from src.handlers.handlers_note import command_add_note, command_delete_note, command_edit_note, command_find_all_note, command_find_text_in_note
-from src.handlers.handlers_tags import command_add_tag, command_delete_tags, command_show_all_tags, command_find_notes_by_tag
+from bots_team.handlers.handlers_contact import add_contact, change_contact, show_phone, show_all, remove_phone, find_phone, delete_contact, search
+from bots_team.handlers.handlers_address import set_address, show_address, remove_address
+from bots_team.handlers.handlers_email import add_email, change_email, show_email, remove_email, find_email
+from bots_team.handlers.handlers_birthday import set_birthday, show_birthday, remove_birthday, birthdays
+from bots_team.handlers.handlers_note import command_add_note, command_delete_note, command_edit_note, command_find_all_note, command_find_text_in_note
+from bots_team.handlers.handlers_tags import command_add_tag, command_delete_tags, command_show_all_tags, command_find_notes_by_tag
 
 def get_available_commands():
     return list(command_list.keys())
