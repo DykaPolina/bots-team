@@ -46,3 +46,6 @@ bots
 
 * Python 3.8+
 * prompt\_toolkit
+
+##
+for tests ```PYTHONPATH=src python3 -m pytest```

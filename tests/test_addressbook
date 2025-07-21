@@ -4,8 +4,8 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from datetime import date, timedelta
 
-from bots_team.models.address_book import AddressBook
-from bots_team.models.record import Record
+from src.bots_team.models.address_book import AddressBook
+from src.bots_team.models.record import Record
 
 
 def test_add_and_find_record():

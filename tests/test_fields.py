@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import pytest
-from bots_team.models.fields import Phone, Email, Birthday
+from src.bots_team.models.fields import Phone, Email, Birthday
 
 
 @pytest.mark.parametrize("input_number,expected", [

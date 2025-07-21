@@ -1,5 +1,5 @@
 import pytest
-from bots_team.models.notes import Notes
+from src.bots_team.models.notes import Notes
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
